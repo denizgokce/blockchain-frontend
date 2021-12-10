@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 const BlockDetailHook = () => {
   let params = useParams();
 
-  const url: string = `https://blockchain-backend-app.herokuapp.com/api/blockchain/block`;
+  const url: string = `http://localhost:3000/api/blockchain/block`;
   const [hash, setHash] = React.useState(params.hash);
 
   const [dataRes, setData] = React.useState({} as any);
