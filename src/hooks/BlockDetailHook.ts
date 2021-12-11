@@ -24,7 +24,7 @@ const BlockDetailHook = () => {
       .finally(() => {
         setLoading(false);
       });
-  }, [hash, url, loading]);
+  }, [hash, url]);
 
   const handlers = React.useMemo(
     () => ({

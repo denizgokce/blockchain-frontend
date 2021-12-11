@@ -30,7 +30,7 @@ const BlocksHook = () => {
       .finally(() => {
         setLoading(false);
       });
-  }, [page, url, loading]);
+  }, [page, url]);
 
   const handlers = React.useMemo(
     () => ({
