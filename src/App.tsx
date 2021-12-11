@@ -10,13 +10,13 @@ import Home from "./components/Home/Home";
 function App() {
   return (
     <div className="App">
-      <Header />
-      <div className="main-container">
-        <Routes>W
+      <Routes>
+        <Header />
+        <div className="main-container">
           <Route path="/" element={<Home />} />
           <Route path="/block/:hash" element={<Detail />} />
-        </Routes>
-      </div>
+        </div>
+      </Routes>
     </div>
   );
 }

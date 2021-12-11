@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from "axios";
 import React from "react";
 
 const BlocksHook = () => {
-  const url: string = `http://localhost:3000/api/blockchain/blocks`;
+  const url: string = `https://blockchain-backend-app.herokuapp.com/api/blockchain/blocks`;
   const [page, setPage] = React.useState(1);
 
   const [dataRes, setData] = React.useState({
@@ -30,7 +30,7 @@ const BlocksHook = () => {
       .finally(() => {
         setLoading(false);
       });
-  }, [page, url]);
+  }, [page, url, loading]);
 
   const handlers = React.useMemo(
     () => ({

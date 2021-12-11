@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Header.module.css";
 import { Container, Nav, Navbar } from "react-bootstrap";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Header = () => (
   <Navbar bg="light" expand="lg" className={styles.Header} data-testid="Header">

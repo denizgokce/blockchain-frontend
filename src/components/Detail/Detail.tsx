@@ -1,18 +1,27 @@
 import React from "react";
 import styles from "./Detail.module.css";
 import Loader from "react-loader-spinner";
-import { Button } from "react-bootstrap";
+import { Alert, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import BlockDetailHook from "../../hooks/BlockDetailHook";
+import { isNullOrUndefined } from "util";
 
 const Detail = () => {
   const { dataRes, loading, error, handlers } = BlockDetailHook();
   let navigate = useNavigate();
   return (
-    <div className={styles.Detail} data-testid="Detail">
-      {
-        !loading && (
-          <>
+    !isNullOrUndefined(error) ?
+      (
+        //region Alert
+        <Alert variant={"danger"}>
+          {error}
+        </Alert>
+        //endregion
+      ) :
+      (
+        !isNullOrUndefined(loading) ? (
+          //region Content
+          <div className={styles.Detail} data-testid="Detail">
             <div className="row mb-2 p-1">
               <label className="col w-50" style={{ textAlign: "left" }}>Block Index</label>
               <span className="col w-50" style={{ textAlign: "left" }}>{dataRes.block_index}</span>
@@ -86,7 +95,10 @@ const Detail = () => {
                 )
               }
             </div>
-          </>) || (
+          </div>
+          //endregion
+        ) : (
+          //region Loader
           <div style={{ margin: "auto" }}>
             <Loader
               type="Oval"
@@ -95,9 +107,9 @@ const Detail = () => {
               width={100}
             />
           </div>
+          //endregion
         )
-      }
-    </div>
+      )
   );
 
 };
