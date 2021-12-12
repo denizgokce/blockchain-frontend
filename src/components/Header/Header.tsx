@@ -4,7 +4,7 @@ import { Container, Nav, Navbar } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 
 const Header = () => (
-  <Navbar bg="light" expand="lg" className={styles.Header} data-testid="Header">
+  <Navbar bg="light" expand="lg" className={styles.Header} data-testid="Header" fixed={"top"}>
     <Container>
       <Navbar.Brand href="#home">Blockchain</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />

@@ -2,15 +2,17 @@ import React from "react";
 import styles from "./Detail.module.css";
 import Loader from "react-loader-spinner";
 import { Alert, Button } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import BlockDetailHook from "../../hooks/BlockDetailHook";
 import { isNullOrUndefined } from "util";
+import * as moment from "moment";
 
 const Detail = () => {
   const { dataRes, loading, error, handlers } = BlockDetailHook();
+  const [showTransactions, setShowTransactions] = React.useState(false);
   let navigate = useNavigate();
   return (
-    !isNullOrUndefined(error) ?
+    !isNullOrUndefined(error) && error.length > 0 ?
       (
         //region Alert
         <Alert variant={"danger"}>
@@ -19,7 +21,7 @@ const Detail = () => {
         //endregion
       ) :
       (
-        !isNullOrUndefined(loading) ? (
+        !isNullOrUndefined(loading) && !loading ? (
           //region Content
           <div className={styles.Detail} data-testid="Detail">
             <div className="row mb-2 p-1">
@@ -78,14 +80,23 @@ const Detail = () => {
             </div>
             <hr />
             <div className="d-flex justify-content-between">
-              {
-                dataRes.prev_block && dataRes.prev_block.length > 0 && (
-                  <Button variant="outline-primary" onClick={() => {
-                    handlers.directPage(dataRes.prev_block);
-                    navigate(`/block/${dataRes.prev_block}`);
-                  }}>Previous</Button>
-                )
-              }
+              <div className="d-flex justify-content-start">
+                {
+                  dataRes.prev_block && dataRes.prev_block.length > 0 && (
+                    <Button className="me-2" variant="outline-primary" onClick={() => {
+                      handlers.directPage(dataRes.prev_block);
+                      navigate(`/block/${dataRes.prev_block}`);
+                    }}>Previous</Button>
+                  )
+                }
+                {
+                  (
+                    <Button variant="outline-info" onClick={() => {
+                      setShowTransactions(!showTransactions);
+                    }}>{showTransactions ? "Hide" : "Show"} Transactions</Button>
+                  )
+                }
+              </div>
               {
                 dataRes.next_block && dataRes.next_block.length > 0 && (
                   <Button variant="outline-primary" onClick={() => {
@@ -95,11 +106,28 @@ const Detail = () => {
                 )
               }
             </div>
+            {
+              showTransactions && (
+                <div className="d-block w-100">
+                  {
+                    dataRes.tx.length > 0 && dataRes.tx.map((transaction: any, i: number) => {
+                      return (
+                        <div key={i} className={styles.transaction_item}>
+                          <div className="d-flex justify-content-start">
+                            <span>Transaction Id: {transaction.tx_index}</span>
+                          </div>
+                        </div>
+                      );
+                    })
+                  }
+                </div>
+              )
+            }
           </div>
           //endregion
         ) : (
           //region Loader
-          <div style={{ margin: "auto" }}>
+          <div className={styles.center_loader}>
             <Loader
               type="Oval"
               color="#00BFFF"

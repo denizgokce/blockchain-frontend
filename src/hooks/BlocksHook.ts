@@ -10,7 +10,7 @@ const BlocksHook = () => {
     page: page,
     pageCount: 0
   });
-  const [error, setError] = React.useState(null);
+  const [error, setError] = React.useState('');
   const [loading, setLoading] = React.useState(false);
 
   React.useEffect(() => {

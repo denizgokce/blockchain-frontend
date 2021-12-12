@@ -8,7 +8,7 @@ const BlockDetailHook = () => {
   const [hash, setHash] = React.useState(params.hash);
 
   const [dataRes, setData] = React.useState({} as any);
-  const [error, setError] = React.useState(null);
+  const [error, setError] = React.useState('');
   const [loading, setLoading] = React.useState(false);
 
   React.useEffect(() => {
